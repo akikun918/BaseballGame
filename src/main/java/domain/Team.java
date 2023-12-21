@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Team {
-	//private int id;
+	private Integer id;
 	private String name;
 	private String place;
 	private Date established;

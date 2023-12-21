@@ -33,12 +33,21 @@
 		</select> <input type="submit" />
 	</form>
 
-	<p>https://medianews77.com/landers/crm/jp_m/</p>
 
+	<p>名前で検索する</p>
+	<form action="" method="post">
+		<input type="text" name="name" /> <input type="submit" value="検索" />
+	</form>
+
+	<c:if
+		test="${not empty playersByTeam || not empty playersByPosition || not empty findPlayersByName}">
+		<p>
+			<a href="playerList">全選手を見る</a>
+		</p>
+	</c:if>
 	<p>
-		<a href="playerList">全選手を見る</a>
+		<a href="menu">メニューに戻る</a>
 	</p>
-
 
 	<table border="1">
 		<tr>
@@ -49,51 +58,44 @@
 		</tr>
 		<c:forEach items="${players}" var="player" varStatus="vs">
 			<tr>
-				<td><a href="playerDetail"><c:out value="${player.name}" /></a>
-				</td>
-				<%-- 		<p>
-			<c:out value="${player.teamId}" />
-		</p> --%>
-				<td><a href="teamDetail"><c:out value="${player.team.name}" /></a>
-				</td>
-				<td><c:out value="${player.birthday}" /></td>
+				<td><a href="playerDetail?id=<c:out value="${player.id}" />"><c:out
+							value="${player.name}" /></a></td>
+				<td><a href="teamDetail?id=<c:out value="${player.team.id}" />"><c:out
+							value="${player.team.name}" /></a></td>
+				<td><fmt:formatDate value="${player.birthday}"
+						pattern="y/MM/dd " /></td>
 				<td><c:out value="${player.position}" /></td>
 			</tr>
-			<%-- 	<p>
-		<c:out value="${player.battingAverage}" />
-		</p>
- --%>
 		</c:forEach>
 		<c:forEach items="${playersByTeam}" var="playersByTeam" varStatus="vs">
-
 			<tr>
-				<td><a href="playerDetail"><c:out
+				<td><a
+					href="playerDetail?id=<c:out value="${playersByTeam.id}" />"><c:out
 							value="${playersByTeam.name}" /></a></td>
-				<%-- 		<p>
-			<c:out value="${playersByTeam.teamId}" />
-		</p> --%>
-				<td><a href="teamDetail"><c:out
+				<td><a
+					href="teamDetail?id=<c:out value="${playersByTeam.team.id}" />"><c:out
 							value="${playersByTeam.team.name}" /></a></td>
-				<td><c:out value="${playersByTeam.birthday}" /></td>
+				<%-- <p><fmt:formatDate value="${now}" pattern="y/MM/dd (E)" /></p>
+ --%>
+				<td><fmt:formatDate value="${playersByTeam.birthday}"
+						pattern="y/MM/dd " /></td>
+				<%-- <p><fmt:formatDate value="${now}" pattern="y 年M 月d 日 HH 時mm 分" /></p>
+ --%>
 				<td><c:out value="${playersByTeam.position}" /></td>
 			</tr>
-			<%-- 	<p>
-		<c:out value="${playersByTeam.battingAverage}" />
-		</p>
- --%>
 		</c:forEach>
 		<c:forEach items="${playersByPosition}" var="playersByPosition"
 			varStatus="vs">
-
 			<tr>
-				<td><a href="playerDetail"><c:out
+				<td><a
+					href="playerDetail?id=<c:out value="${playersByPosition.id}" />"><c:out
 							value="${playersByPosition.name}" /></a></td>
-				<%-- 		<p>
-			<c:out value="${playersByTeam.teamId}" />
-		</p> --%>
-				<td><a href="teamDetail"><c:out
+				<td><a
+					href="teamDetail?id=<c:out value="${playersByPosition.team.id}" />"><c:out
 							value="${playersByPosition.team.name}" /></a></td>
-				<td><c:out value="${playersByPosition.birthday}" /></td>
+				<td><fmt:formatDate value="${playersByPosition.birthday}"
+						pattern="y/MM/dd " /></td>
+				<%-- <td><c:out value="${playersByPosition.birthday}" /></td> --%>
 				<td><c:out value="${playersByPosition.position}" /></td>
 			</tr>
 			<%-- 	<p>
@@ -101,12 +103,22 @@
 		</p>
  --%>
 		</c:forEach>
+
+		<c:forEach items="${findPlayersByName}" var="player" varStatus="vs">
+			<tr>
+				<td><a href="playerDetail?id=<c:out value="${player.id}" />"><c:out
+							value="${player.name}" /></a></td>
+				<td><a href="teamDetail?id=<c:out value="${player.team.id}" />"><c:out
+							value="${player.team.name}" /></a></td>
+				<td><fmt:formatDate value="${player.birthday}"
+						pattern="y/MM/dd " /></td>
+				<%-- <td><c:out value="${player.birthday}" /></td> --%>
+				<td><c:out value="${player.position}" /></td>
+			</tr>
+		</c:forEach>
+
+
 	</table>
-
-
-	<p>
-		<a href="menu">メニューに戻る</a>
-	</p>
 
 </body>
 </html>
