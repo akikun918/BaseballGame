@@ -12,11 +12,30 @@ public class DaoFactory {
 
 	}
 
+	public static AdminDao createAdminDaoImpl() {
+
+		return new AdminDaoImpl(getDataSource());
+
+	}
+	
+	public static ItemDao createItemDaoImpl() {
+
+		return new ItemDaoImpl(getDataSource());
+
+	}
+	
+	public static TeamDao createTeamDaoImpl() {
+
+		return new TeamDaoImpl(getDataSource());
+
+	}
+	
+	
 	public static DataSource getDataSource() {
 		DataSource ds = null;
 		InitialContext ctx = null;
 
-		//	try(ctx = new InitialContext()) {
+		// try(ctx = new InitialContext()) {
 		try {
 			System.out.println("DaoFactoryのtry内のds = (DataSource)前");
 			ctx = new InitialContext();

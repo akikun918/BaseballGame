@@ -8,6 +8,26 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%-- 
+	<c:if test="${empty scores}">
+		<form action="" method="post">
+			<p>対戦チームを選ぶ</p>
+			<select name="teamId">
+				<c:forEach items="${teams}" var="team" varStatus="vs">
+					<option value="<c:out value="${team.id}" />"><c:out
+							value="${team.name}　優勝回数：${team.victory}　勝利数${team.win}" /></option>
+				</c:forEach>
+			</select> 
+				<p>ピッチャーを選ぶ</p>
+			<select name="pitcherId">
+				<c:forEach items="${selectPitchers}" var="pitcher" varStatus="vs">
+					<option value="<c:out value="${pitcher.id}" />">
+						<c:out value="${pitcher.name} 体力：${pitcher.stamina}" /></option>
+				</c:forEach>
+			</select> 
+			<input type="submit" value="試合開始" />
+		</form>
+	</c:if> --%>
 
 	<table border="1">
 		<tr>
@@ -24,7 +44,7 @@
 			<td>計</td>
 		</tr>
 		<tr>
-			<th>あなた</th>
+			<th>新大久保ジードライヴス</th>
 			<c:forEach items="${scores}" var="score" varStatus="vs">
 				<td><c:out value="${score}" /></td>
 			</c:forEach>
@@ -33,7 +53,7 @@
 			</c:if>
 		</tr>
 		<tr>
-			<th>コンピュータ</th>
+			<th><c:out value="${comTeam.name}" /></th>
 			<c:forEach items="${comScores}" var="comScore" varStatus="vs">
 				<td><c:out value="${comScore}" /></td>
 			</c:forEach>
@@ -42,33 +62,49 @@
 			</c:if>
 		</tr>
 	</table>
+	<c:if test="${empty total}">
 
+		<form action="" method="post">
+			<p>
+				<input type="submit" value="次のイニングへ" />
+			</p>
+		</form>
+
+	</c:if>
+	<c:if test="${empty total}">
+		<form action="" method="post">
+			<p>
+				<c:out value="ピッチャー：${pitcher.name}" />
+				<c:out value="${leftStamina}" />
+
+				<c:if test="${admin.drink > 0}">
+					<input type="hidden" name="drink" value="1" />
+					<input type="submit"
+						value="エナジードリンクを使う　<c:out value="${admin.drink} 個保有" />" />
+				</c:if>
+			</p>
+		</form>
+
+		<form action="gameChangePitcher">
+			<p>
+				<input type="submit" value="ピッチャー交代" />
+			</p>
+		</form>
+
+	</c:if>
 
 	<c:if test="${not empty result}">
 		<p>
 			<c:out value="${result}" />
 		</p>
-
-		<form action="" method="post">
-			<p>
-				<input type="submit" value="もう一度試合をする" />
-			</p>
-		</form>
 		<p>
-			<a href="menu">メニューヘ</a>
+			<a href="preGame">もう一度試合をする</a>
+		</p>
+		<p>
+			<a href="menu">メニューへ</a>
 		</p>
 	</c:if>
 
 
-	<form action="" method="post">
-		<c:if test="${empty scores}">
-			<input type="submit" value="試合開始" />
-		</c:if>
-		<c:if test="${not empty scores}">
-			<c:if test="${empty total}">
-				<input type="submit" value="次のイニングへ" />
-			</c:if>
-		</c:if>
-	</form>
 </body>
 </html>

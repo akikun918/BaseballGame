@@ -3,12 +3,14 @@ package domain;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Player {
 
 	private int id;
@@ -20,4 +22,11 @@ public class Player {
 	private int battingAverage;
 	private Integer stamina ;
 	private Integer salary;
+	private String feel;
+	private int defense;
+
+	
+	
+
+	
 }

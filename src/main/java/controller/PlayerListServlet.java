@@ -26,7 +26,6 @@ public class PlayerListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		PlayerDao playerDao = DaoFactory.createMemberDaoImpl();
 		List<Player> players = playerDao.findAll();
 
@@ -42,36 +41,24 @@ public class PlayerListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 
 		String strTeamId = request.getParameter("teamId");
 		String position = request.getParameter("position");
+		String name = request.getParameter("name");
 		PlayerDao playerDao = DaoFactory.createMemberDaoImpl();
 
 		if (strTeamId != null) {
-
 			Integer teamId = Integer.parseInt(strTeamId);
-			System.out.println(teamId);
-
 			List<Player> playersByTeam = playerDao.findPlayersByTeam(teamId);
-			for (Player player : playersByTeam) {
-				System.out.println(player.getName());
-			}
 			request.setAttribute("playersByTeam", playersByTeam);
-		}
-
-		if (position != null) {
-
+		} else if (position != null) {
 			List<Player> playersByPosition = playerDao.findPlayersByPosition(position);
-			for (Player player : playersByPosition) {
-				System.out.println(player.getName());
-			}
 			request.setAttribute("playersByPosition", playersByPosition);
-
+		} else {
+			List<Player> findPlayersByName = playerDao.findPlayersByName(name);
+			request.setAttribute("findPlayersByName", findPlayersByName);
 		}
-
 		request.getRequestDispatcher("/WEB-INF/view/playerList.jsp").forward(request, response);
 
 	}
-
 }
